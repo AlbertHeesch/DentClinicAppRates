@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,21 @@ class RateServiceTest {
 
     @Mock
     private RateDao repository;
+
+    @Test
+    void shouldFetchEmptyList()
+    {
+        //Given
+        List<Rate> emptyRateList = new ArrayList<>();
+
+        when(repository.findAll()).thenReturn(emptyRateList);
+
+        //When
+        List<Rate> rateList = service.getAllRates();
+
+        //Then
+        assertEquals(0, rateList.size());
+    }
 
     @Test
     void getAllRates()
@@ -90,11 +106,11 @@ class RateServiceTest {
         when(repository.save(any(Rate.class))).thenReturn(currency1);
 
         //When
-        Rate foundRate = service.saveRate(currency1);
+        Rate savedRate = service.saveRate(currency1);
 
         //Then
-        assertEquals(1L, foundRate.getId());
-        assertEquals("currency1", foundRate.getName());
-        assertEquals(3.33, foundRate.getValue());
+        assertEquals(1L, savedRate.getId());
+        assertEquals("currency1", savedRate.getName());
+        assertEquals(3.33, savedRate.getValue());
     }
 }
