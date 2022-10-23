@@ -84,6 +84,15 @@ class RateServiceTest {
     }
 
     @Test
+    void shouldNotFindRateById() {
+        //Given
+        when(repository.findById(any(long.class))).thenReturn(Optional.empty());
+
+        //When&Then
+        assertThrows(ElementNotFoundException.class, () -> service.getRateById(1L));
+    }
+
+    @Test
     void getRateByName() throws ElementNotFoundException {
         //Given
         Rate currency1 = new Rate(1L, "currency1", 3.33);
@@ -96,6 +105,15 @@ class RateServiceTest {
         assertEquals(1L, foundRate.getId());
         assertEquals("currency1", foundRate.getName());
         assertEquals(3.33, foundRate.getValue());
+    }
+
+    @Test
+    void shouldNotFindRateByName() {
+        //Given
+        when(repository.findRateByName(any(String.class))).thenReturn(Optional.empty());
+
+        //When&Then
+        assertThrows(ElementNotFoundException.class, () -> service.getRateByName("Name"));
     }
 
     @Test
