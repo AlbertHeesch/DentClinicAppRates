@@ -1,6 +1,5 @@
 package com.dent.dentclinicapp.rates.rates.controller;
 
-import com.dent.dentclinicapp.rates.rates.domain.Rate;
 import com.dent.dentclinicapp.rates.rates.domain.RateDto;
 import com.dent.dentclinicapp.rates.rates.facade.RateFacade;
 import com.google.gson.Gson;
@@ -30,8 +29,6 @@ class RateControllerTest {
 
     @MockBean
     private RateFacade facade;
-
-    private final Rate rate1 = new Rate(1L, "Name1", 1.1);
 
     private final RateDto rateDto1 = new RateDto(1L, "Name1", 1.1);
     private final RateDto rateDto2 = new RateDto(2L, "Name2", 2.2);
@@ -129,7 +126,7 @@ class RateControllerTest {
         when(facade.updateRate(any(RateDto.class))).thenReturn(rateDto1);
 
         Gson gson = new Gson();
-        String jsonContent = gson.toJson(rate1);
+        String jsonContent = gson.toJson(rateDto1);
 
         //When & Then
         mockMvc
