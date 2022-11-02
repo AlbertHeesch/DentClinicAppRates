@@ -39,7 +39,7 @@ public class RateController
     }
 
     @PutMapping
-    public ResponseEntity<RateDto> updateRate(@RequestBody RateDto rateDto) {
+    public ResponseEntity<RateDto> updateRate(@RequestBody RateDto rateDto) throws ElementNotFoundException {
         return ResponseEntity.ok(facade.updateRate(rateDto));
     }
 }

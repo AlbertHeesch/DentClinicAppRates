@@ -38,9 +38,11 @@ public class RateFacade
         service.saveRate(rate);
     }
 
-    public RateDto updateRate(@RequestBody RateDto rateDto) {
-        Rate rate = mapper.mapToRate(rateDto);
-        Rate savedRate = service.saveRate(rate);
-        return mapper.mapToRateDto(savedRate);
+    public RateDto updateRate(@RequestBody RateDto rateDto) throws ElementNotFoundException {
+        Rate rateToUpdate = service.getRateById(rateDto.getId());
+        rateToUpdate.setName(rateDto.getName());
+        rateToUpdate.setValue(rateDto.getValue());
+        service.saveRate(rateToUpdate);
+        return rateDto;
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -83,14 +84,14 @@ class RateFacadeTest {
     }
 
     @Test
-    void updateRateTest() {
+    void updateRateTest() throws ElementNotFoundException {
         //Given
         Rate rate1 = new Rate(1L, "Name1", 1.1);
         RateDto rateDto1 = new RateDto(1L, "Name1", 1.1);
 
-        when(mapper.mapToRate(any(RateDto.class))).thenReturn(rate1);
+        when(service.getRateById(any(long.class))).thenReturn(rate1);
         when(service.saveRate(any(Rate.class))).thenReturn(rate1);
-        when(mapper.mapToRateDto(any(Rate.class))).thenReturn(rateDto1);
+
 
         //When
         RateDto updatedRateDto = facade.updateRate(rateDto1);
