@@ -4,9 +4,17 @@ plugins {
     id 'java'
 }
 
+apply plugin: 'io.spring.dependency-management'
+
 group = 'com.dent.dentclinicapp.rates'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 repositories {
     mavenCentral()
@@ -17,6 +25,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 
     runtimeOnly 'mysql:mysql-connector-java'
 
@@ -30,6 +41,17 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
-tasks.named('test') {
+
+ext {
+    set('springCloudVersion', '2021.0.4')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
     useJUnitPlatform()
 }
