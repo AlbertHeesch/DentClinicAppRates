@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 
-    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'mysql:mysql-connector-java:8.0.32'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.google.code.gson:gson'
